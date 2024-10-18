@@ -78,5 +78,48 @@
       *      DISPLAY WS-HORA
       ******************************************************************
 
+      ****************************** MOVE ******************************
+      *
+      ******* VARIAVEL TO VARIAVEL
+      *  77 WS-VA        PIC 9(2) VALUE 10.
+      *  77 WS-VB        PIC 9(2).
+      *
+      *PROCEDURE DIVISION.
+      *MAIN-PROCEDURE.
+      *
+      *    MOVE WS-VA TO WS-VB.
+      *
+      *    DISPLAY "O VALOR DA VARIAVEL B: " WS-VB.
+      *
+      ******* LITERAL TO VARIAVEL
+      *  77 WS-VA        PIC 9(3) VALUE 10.
+      *
+      *PROCEDURE DIVISION.
+      *MAIN-PROCEDURE.
+      *
+      *    MOVE 100 TO WS-VA.
+      *
+      *    DISPLAY "O NOVO VALOR DA VARIAVEL A: " WS-VA.
+      *
+      ******* ATRIBUIÇÃO POSICIONAL
+      *  77 WS-DATA            PIC X(20).
+      *  77 WS-DATA-AA         PIC X(20).
+      *
+      *PROCEDURE DIVISION.
+      *MAIN-PROCEDURE.
+      *
+      *    MOVE "12" TO WS-DATA(01:02).
+      *    MOVE "/" TO WS-DATA(03:01).
+      *    MOVE "03" TO WS-DATA(04:02).
+      *    MOVE "/" TO WS-DATA(06:01).
+      *    MOVE "2021" TO WS-DATA(07:04).
+      *
+      *    DISPLAY "DATA: " WS-DATA.
+      *
+      *    MOVE WS-DATA(07:04) TO WS-DATA-AA.
+      *
+      *    DISPLAY "O ANO: " WS-DATA-AA.
+      ******************************************************************
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
