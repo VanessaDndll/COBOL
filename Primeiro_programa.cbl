@@ -13,20 +13,20 @@
 
       ************************* CONTA SIMPLES **************************
       *
-      * 77 WS-N1            PIC 9(02) VALUE ZEROS.
-      * 77 WS-N2            PIC 9(02) VALUE ZEROS.
-      * 77 WS-N3            PIC Z(03) VALUE ZEROS.
+      *  77 WS-N1            PIC 9(02) VALUE ZEROS.
+      *  77 WS-N2            PIC 9(02) VALUE ZEROS.
+      *  77 WS-N3            PIC Z(03) VALUE ZEROS.
       *
       *
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      MOVE 5 TO WS-N1
-      *      MOVE 3 TO WS-N2
-
-      *      COMPUTE WS-N3 = WS-N1 + WS-N2
-
-      *      DISPLAY "O RESULTADO EH: " WS-N3
+      *    MOVE 5 TO WS-N1
+      *    MOVE 3 TO WS-N2
+      *
+      *    COMPUTE WS-N3 = WS-N1 + WS-N2
+      *
+      *    DISPLAY "O RESULTADO EH: " WS-N3
       ******************************************************************
 
       ****************************** ACCEPT ****************************
@@ -37,9 +37,9 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      DISPLAY 'DIGITE SEU NOME: '
-      *      ACCEPT WS-NOME
-      *      DISPLAY 'SEU NOME EH: ' WS-NOME
+      *    DISPLAY 'DIGITE SEU NOME: '
+      *    ACCEPT WS-NOME
+      *    DISPLAY 'SEU NOME EH: ' WS-NOME
       *
       ******* PEGAR A DATA
       *  77 WS-DATA         PIC X(20).
@@ -47,8 +47,8 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      ACCEPT WS-DATA FROM DATE *YYYYMMDD
-      *      DISPLAY WS-DATA
+      *    ACCEPT WS-DATA FROM DATE *YYYYMMDD
+      *    DISPLAY WS-DATA
       *
       ******* ANO + CONTAGEM DOS DIAS
       *  77 WS-CONT         PIC X(20).
@@ -56,8 +56,8 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      ACCEPT WS-CONT FROM DAY *YYYYDDD
-      *      DISPLAY WS-CONT
+      *    ACCEPT WS-CONT FROM DAY *YYYYDDD
+      *    DISPLAY WS-CONT
       *
       ******* DIA DA SEMANA
       *  77 WS-DW         PIC X(20).
@@ -65,8 +65,8 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      ACCEPT WS-DW FROM DAY-OF-WEEK
-      *      DISPLAY WS-DW
+      *    ACCEPT WS-DW FROM DAY-OF-WEEK
+      *    DISPLAY WS-DW
       *
       ******* HORARIO
       *  77 WS-HORA         PIC X(20).
@@ -74,8 +74,8 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *      ACCEPT WS-HORA FROM TIME
-      *      DISPLAY WS-HORA
+      *    ACCEPT WS-HORA FROM TIME
+      *    DISPLAY WS-HORA
       ******************************************************************
 
       ****************************** MOVE ******************************
@@ -108,17 +108,48 @@
       *PROCEDURE DIVISION.
       *MAIN-PROCEDURE.
       *
-      *    MOVE "12" TO WS-DATA(01:02).
-      *    MOVE "/" TO WS-DATA(03:01).
-      *    MOVE "03" TO WS-DATA(04:02).
-      *    MOVE "/" TO WS-DATA(06:01).
-      *    MOVE "2021" TO WS-DATA(07:04).
+      *    MOVE "12"       TO      WS-DATA(01:02).
+      *    MOVE "/"        TO      WS-DATA(03:01).
+      *    MOVE "03"       TO      WS-DATA(04:02).
+      *    MOVE "/"        TO      WS-DATA(06:01).
+      *    MOVE "2021"     TO      WS-DATA(07:04).
       *
       *    DISPLAY "DATA: " WS-DATA.
       *
-      *    MOVE WS-DATA(07:04) TO WS-DATA-AA.
+      *    MOVE WS-DATA(07:04)     TO      WS-DATA-AA.
       *
       *    DISPLAY "O ANO: " WS-DATA-AA.
+      ******************************************************************
+
+      ****************************** SET *******************************
+      *
+      ******* SET LITERAL
+      *  77 WS-NUM-1     PIC 9(2) VALUE ZERO.
+      *  77 WS-NUM-2     PIC 9(2) VALUE ZERO.
+      *
+      *PROCEDURE DIVISION.
+      *MAIN-PROCEDURE.
+      *
+      *    DISPLAY "O VALOR ANTIGO DE NUM 1: " WS-NUM-1
+      *    SET WS-NUM-1        TO      5
+      *    DISPLAY "O NOVO VALOR DE NUM 1: " WS-NUM-1
+      *
+      *    DISPLAY "O VALOR ANTIGO DE NUM 2: " WS-NUM-2
+      *    SET WS-NUM-2        TO      WS-NUM-1
+      *    DISPLAY "O NOVO VALOR DE NUM 2: " WS-NUM-2
+      *
+      ******* SET COM BOOLEANO
+      *  01 WS-PAGTO  PIC X VALUE 'N'.
+      *    88 WS-CONFIRM VALUE 'S' FALSE 'N'.
+      *
+      *PROCEDURE DIVISION.
+      *MAIN-PROCEDURE.
+      *
+      *    DISPLAY "SITUACAO DO PAGAMENTO ATUAL: " WS-PAGTO
+      *    SET WS-CONFIRM      TO      TRUE
+      *    DISPLAY "NOVA SITUACAO DO PAGAMENTO ATUAL: " WS-PAGTO
+      *    SET WS-CONFIRM      TO      FALSE
+      *    DISPLAY "SITUACAO FINAL DO PAGAMENTO ATUAL: " WS-PAGTO
       ******************************************************************
 
             STOP RUN.
