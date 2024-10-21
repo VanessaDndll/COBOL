@@ -154,35 +154,63 @@
 
       ************************** PERFORM - BÁSICO **********************
       *
-       PROCEDURE DIVISION.
-
+      * PROCEDURE DIVISION.
+      *
       * PERFORM P3-START THRU P3-END.
       * PERFORM P1-START THRU P1-END.
       * PERFORM P2-START THRU P2-END.
       * PERFORM P4-START THRU P4-END.
+      *
+      * PERFORM S2.
+      * PERFORM S1.
+      * PERFORM S3.
+      *
+      * S1 SECTION.
+      * P1-START.
+      *     DISPLAY "Plataforma 1".
+      * P1-END.
+      *
+      * P2-START.
+      *     DISPLAY "Plataforma 2".
+      * P2-END.
+      *
+      * S2 SECTION.
+      * P3-START.
+      *     DISPLAY "Plataforma 3".
+      * P3-END.
+      *
+      * S3 SECTION.
+      * P4-START.
+      *      STOP RUN.
+      * P4-END.
+      ******************************************************************
 
-       PERFORM S2.
-       PERFORM S1.
-       PERFORM S3.
+      ****************************** COMPUTE ***************************
+      *
+      *   77 WS-RESULT      PIC 9(4) VALUE ZEROS.
+      *   77 WS-N1          PIC 99   VALUE ZEROS.
+      *   77 WS-N2          PIC 99   VALUE ZEROS.
+      *
+      * PROCEDURE DIVISION.
+      * MAIN-PROCEDURE.
+      *
+      *     COMPUTE WS-RESULT = 5 + 5
+      *     COMPUTE WS-RESULT = WS-RESULT - 2
+      *     COMPUTE WS-RESULT = WS-RESULT * 7
+      *     COMPUTE WS-RESULT = WS-RESULT / 2
+      *     COMPUTE WS-RESULT = WS-RESULT ** 2
+      *
+      *     DISPLAY WS-RESULT
+      *
+      *     DISPLAY "INFORME O PRIMEIRO NUMERO: "
+      *     ACCEPT WS-N1
+      *
+      *     DISPLAY "INFORME O SEGUNDO NUMERO: "
+      *     ACCEPT WS-N2
+      *
+      *     COMPUTE WS-RESULT = WS-N1 + WS-N2
+      *     DISPLAY "O RESULTADO DA SUA SOMA: " WS-RESULT
+      ******************************************************************
 
-       S1 SECTION.
-       P1-START.
-           DISPLAY "Plataforma 1".
-       P1-END.
-
-       P2-START.
-           DISPLAY "Plataforma 2".
-       P2-END.
-
-       S2 SECTION.
-       P3-START.
-           DISPLAY "Plataforma 3".
-       P3-END.
-
-       S3 SECTION.
-       P4-START.
             STOP RUN.
-       P4-END.
-
-
        END PROGRAM Primeiro_programa.
