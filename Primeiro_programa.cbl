@@ -152,5 +152,37 @@
       *    DISPLAY "SITUACAO FINAL DO PAGAMENTO ATUAL: " WS-PAGTO
       ******************************************************************
 
+      ************************** PERFORM - BÁSICO **********************
+      *
+       PROCEDURE DIVISION.
+
+      * PERFORM P3-START THRU P3-END.
+      * PERFORM P1-START THRU P1-END.
+      * PERFORM P2-START THRU P2-END.
+      * PERFORM P4-START THRU P4-END.
+
+       PERFORM S2.
+       PERFORM S1.
+       PERFORM S3.
+
+       S1 SECTION.
+       P1-START.
+           DISPLAY "Plataforma 1".
+       P1-END.
+
+       P2-START.
+           DISPLAY "Plataforma 2".
+       P2-END.
+
+       S2 SECTION.
+       P3-START.
+           DISPLAY "Plataforma 3".
+       P3-END.
+
+       S3 SECTION.
+       P4-START.
             STOP RUN.
+       P4-END.
+
+
        END PROGRAM Primeiro_programa.
