@@ -212,5 +212,22 @@
       *     DISPLAY "O RESULTADO DA SUA SOMA: " WS-RESULT
       ******************************************************************
 
+      ****************************** INSPECT ***************************
+      *
+      *   77 WS-TEXTO       PIC X(90) VALUE "Atualmente estudo COBOL, u"-
+      *-"ma linguagem bem legal e divertida. Vale muito a pena começar.".
+      *   77 WS-TOTAL       PIC 9(3).
+      *
+      *     PROCEDURE DIVISION.
+      *
+      ******* EXAMINAR/CONTAR
+      *     INSPECT WS-TEXTO TALLYING WS-TOTAL FOR ALL "a".
+      *     DISPLAY "O TOTAL DE a: " WS-TOTAL
+      *
+      ******* MODIFICAR
+      *     INSPECT WS-TEXTO REPLACING ALL "a" BY "Y".
+      *     DISPLAY WS-TEXTO
+      ******************************************************************
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
