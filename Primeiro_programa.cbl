@@ -218,7 +218,7 @@
       *-"ma linguagem bem legal e divertida. Vale muito a pena começar.".
       *   77 WS-TOTAL       PIC 9(3).
       *
-      *     PROCEDURE DIVISION.
+      * PROCEDURE DIVISION.
       *
       ******* EXAMINAR/CONTAR
       *     INSPECT WS-TEXTO TALLYING WS-TOTAL FOR ALL "a".
@@ -228,6 +228,44 @@
       *     INSPECT WS-TEXTO REPLACING ALL "a" BY "Y".
       *     DISPLAY WS-TEXTO
       ******************************************************************
+
+      *************************** INITIALISE ***************************
+      *
+         01 WS-NOME.
+           03 WS-PRIMEIRO-NOME     PIC X(10) VALUE "VANESSA".
+           03 FILLER               PIC X(10) VALUE "DNDLL".
+           03 WS-IDADE             PIC 9(03) VALUE 19.
+
+       PROCEDURE DIVISION.
+
+           DISPLAY 'SAIDA 1: '
+           DISPLAY WS-NOME
+
+           DISPLAY 'SAIDA 2: '
+           INITIALISE WS-NOME REPLACING ALPHANUMERIC BY 'SPACES' NUMERIC
+           BY 3.
+           DISPLAY WS-NOME
+
+           DISPLAY 'SAIDA 3: '
+           INITIALISE WS-NOME
+           DISPLAY WS-NOME
+
+           DISPLAY 'SAIDA 4: '
+           INITIALISE WS-NOME REPLACING ALPHANUMERIC BY SPACES NUMERIC
+           BY ZEROS.
+           DISPLAY WS-NOME
+
+
+
+
+
+
+
+
+
+
+
+
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
