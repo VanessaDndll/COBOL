@@ -231,41 +231,100 @@
 
       *************************** INITIALISE ***************************
       *
-         01 WS-NOME.
-           03 WS-PRIMEIRO-NOME     PIC X(10) VALUE "VANESSA".
-           03 FILLER               PIC X(10) VALUE "DNDLL".
-           03 WS-IDADE             PIC 9(03) VALUE 19.
+      *   01 WS-NOME.
+      *     03 WS-PRIMEIRO-NOME     PIC X(10) VALUE "VANESSA".
+      *     03 FILLER               PIC X(10) VALUE "DNDLL".
+      *     03 WS-IDADE             PIC 9(03) VALUE 19.
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     DISPLAY 'SAIDA 1: '
+      *     DISPLAY WS-NOME
+      *
+      *     DISPLAY 'SAIDA 2: '
+      *     INITIALISE WS-NOME REPLACING ALPHANUMERIC BY 'SPACES'
+      *                                  NUMERIC      BY  3.
+      *     DISPLAY WS-NOME
+      *
+      *     DISPLAY 'SAIDA 3: '
+      *     INITIALISE WS-NOME
+      *     DISPLAY WS-NOME
+      *
+      *     DISPLAY 'SAIDA 4: '
+      *     INITIALISE WS-NOME REPLACING ALPHANUMERIC BY SPACES
+      *                                  NUMERIC      BY ZEROS.
+      *     DISPLAY WS-NOME
+      ******************************************************************
 
-       PROCEDURE DIVISION.
-
-           DISPLAY 'SAIDA 1: '
-           DISPLAY WS-NOME
-
-           DISPLAY 'SAIDA 2: '
-           INITIALISE WS-NOME REPLACING ALPHANUMERIC BY 'SPACES' NUMERIC
-           BY 3.
-           DISPLAY WS-NOME
-
-           DISPLAY 'SAIDA 3: '
-           INITIALISE WS-NOME
-           DISPLAY WS-NOME
-
-           DISPLAY 'SAIDA 4: '
-           INITIALISE WS-NOME REPLACING ALPHANUMERIC BY SPACES NUMERIC
-           BY ZEROS.
-           DISPLAY WS-NOME
-
-
-
-
-
-
-
-
-
-
-
-
+      *************************** STRING *******************************
+      *
+      *   77 WS-CONTEUDO            PIC X(30) VALUE SPACES.
+      *   77 WS-TEXTO               PIC X(40) VALUE SPACES.
+      *   77 WS-PONTEIRO            PIC 9(02) VALUE ZEROS.
+      *
+      * PROCEDURE DIVISION.
+      *
+      ******* SIMPLES
+      *
+      *     INITIALISE WS-CONTEUDO
+      *     STRING
+      *         'VANESSA'
+      *         ' '
+      *         'DNDLL'
+      *         DELIMITED BY SIZE INTO WS-CONTEUDO
+      *     END-STRING
+      *
+      *     DISPLAY WS-CONTEUDO
+      *
+      ******* POSICIONAL
+      *
+      *     INITIALISE WS-CONTEUDO
+      *     INITIALISE WS-TEXTO
+      *
+      *>         123456789012345678901234567890123456
+      *     MOVE 'O PROFESSOR GOSTA DE MINISTRAR COBOL' TO WS-TEXTO
+      *
+      *     STRING
+      *         WS-TEXTO(1:21)
+      *         WS-TEXTO(32:5)
+      *         DELIMITED BY SIZE INTO WS-CONTEUDO
+      *     END-STRING
+      *
+      *     DISPLAY WS-CONTEUDO
+      *
+      ******* DELIMITAR POR ALGO
+      *
+      *     INITIALISE WS-CONTEUDO
+      *     INITIALISE WS-TEXTO
+      *
+      *     MOVE 'O PROFESSOR GOSTA DE MINISTRAR COBOL' TO WS-TEXTO
+      *
+      *     STRING
+      *         WS-TEXTO
+      *
+      *         DELIMITED BY 'G' INTO WS-CONTEUDO
+      *>       DELIMITED BY SPACES INTO WS-CONTEUDO
+      *     END-STRING
+      *
+      *     DISPLAY WS-CONTEUDO
+      *
+      ******* POINTER
+      *
+      *     INITIALISE WS-CONTEUDO
+      *     INITIALISE WS-TEXTO
+      *
+      *     MOVE 'O           GOSTA DE MINISTRAR COBOL' TO WS-TEXTO
+      *     SET WS-PONTEIRO TO 3
+      *
+      *     STRING
+      *         'PROFESSOR'
+      *         DELIMITED BY SIZE INTO WS-TEXTO WITH POINTER WS-PONTEIRO
+      *     END-STRING
+      *
+      *     DISPLAY WS-TEXTO
+      *     DISPLAY WS-PONTEIRO
+      *
+      ******************************************************************
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
