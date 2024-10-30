@@ -326,5 +326,137 @@
       *
       ******************************************************************
 
+      *************************** UNSTRING *****************************
+      *
+      *   77 WS-NOME-COMPLETO           PIC X(50) VALUE SPACES.
+      *   01 WS-NOME.
+      *       03 WS-PRIM-NOME           PIC X(40) VALUE SPACES.
+      *       03 WS-MEIO-NOME           PIC X(40) VALUE SPACES.
+      *       03 WS-ULTI-NOME           PIC X(40) VALUE SPACES.
+      *   77 WS-MOSTRA                  PIC X(50) VALUE SPACES.
+      *
+      *   01 WS-COUNT.
+      *       03 WS-PONTEIRO            PIC 9(02) VALUE ZEROS.
+      *       03 WS-TOT-CAMPOS          PIC 9(02) VALUE ZEROS.
+      *       03 WS-TM-1                PIC 9(02) VALUE ZEROS.
+      *       03 WS-TM-2                PIC 9(02) VALUE ZEROS.
+      *       03 WS-TM-3                PIC 9(02) VALUE ZEROS.
+      *
+      * PROCEDURE DIVISION.
+      *
+      ******* SIMPLES
+      *
+      *     INITIALISE WS-NOME-COMPLETO WS-NOME WS-MOSTRA
+      *
+      *     MOVE 'VANESSA CRISTINA DONADELLI' TO WS-NOME-COMPLETO
+      *
+      *     UNSTRING
+      *         WS-NOME-COMPLETO
+      *         DELIMITED BY SPACE
+      *         INTO WS-PRIM-NOME
+      *              WS-MEIO-NOME
+      *              WS-ULTI-NOME
+      *     END-UNSTRING
+      *
+      *     DISPLAY '==== FORMA SIMPLES ===='
+      *     DISPLAY 'PRIMEIRO NOME: ' WS-PRIM-NOME
+      *     DISPLAY 'MEIO NOME: '     WS-MEIO-NOME
+      *     DISPLAY 'ULTIMO NOME: '   WS-ULTI-NOME
+      *
+      ******* SIMPLES + ALL
+      *
+      *     INITIALISE WS-NOME-COMPLETO WS-NOME WS-MOSTRA
+      *
+      *     MOVE 'VANESSA     CRISTINA     DONADELLI' TO WS-NOME-COMPLETO
+      *
+      *     UNSTRING
+      *         WS-NOME-COMPLETO
+      *         DELIMITED BY ALL SPACE
+      *         INTO WS-PRIM-NOME
+      *              WS-MEIO-NOME
+      *              WS-ULTI-NOME
+      *     END-UNSTRING
+      *
+      *     DISPLAY '==== FORMA SIMPLES + ALL ===='
+      *     DISPLAY 'PRIMEIRO NOME: ' WS-PRIM-NOME
+      *     DISPLAY 'MEIO NOME: '     WS-MEIO-NOME
+      *     DISPLAY 'ULTIMO NOME: '   WS-ULTI-NOME
+      *
+      ******* POINTER
+      *
+      *     INITIALISE WS-NOME-COMPLETO WS-NOME WS-MOSTRA WS-COUNT
+      *
+      *     MOVE 'VANESSA CRISTINA DONADELLI' TO WS-NOME-COMPLETO
+      *     MOVE 03                           TO WS-PONTEIRO
+      *
+      *     UNSTRING
+      *         WS-NOME-COMPLETO
+      *         DELIMITED BY ALL SPACE
+      *         INTO WS-PRIM-NOME
+      *              WS-MEIO-NOME
+      *              WS-ULTI-NOME
+      *         WITH POINTER WS-PONTEIRO
+      *         TALLYING IN WS-TOT-CAMPOS
+      *     END-UNSTRING
+      *
+      *     DISPLAY '==== FORMA PONTEIRO ===='
+      *     DISPLAY 'PRIMEIRO NOME: ' WS-PRIM-NOME
+      *     DISPLAY 'MEIO NOME: '     WS-MEIO-NOME
+      *     DISPLAY 'ULTIMO NOME: '   WS-ULTI-NOME
+      *     DISPLAY 'PONTEIRO: '      WS-PONTEIRO
+      *     DISPLAY 'TOT CAMPOS: '    WS-TOT-CAMPOS
+      *
+      ******* OR
+      *
+      *     INITIALISE WS-NOME-COMPLETO WS-NOME WS-MOSTRA WS-COUNT
+      *
+      *     MOVE '*VANESSA;CRISTINA*DONADELLI' TO WS-NOME-COMPLETO
+      *     MOVE 01                           TO WS-PONTEIRO
+      *
+      *     UNSTRING
+      *         WS-NOME-COMPLETO
+      *         DELIMITED BY '*' OR ';'
+      *         INTO WS-PRIM-NOME
+      *              WS-MEIO-NOME
+      *              WS-ULTI-NOME
+      *         WITH POINTER WS-PONTEIRO
+      *         TALLYING IN WS-TOT-CAMPOS
+      *     END-UNSTRING
+      *
+      *     DISPLAY '==== FORMA COM OR ===='
+      *     DISPLAY 'PRIMEIRO NOME: ' WS-PRIM-NOME
+      *     DISPLAY 'MEIO NOME: '     WS-MEIO-NOME
+      *     DISPLAY 'ULTIMO NOME: '   WS-ULTI-NOME
+      *     DISPLAY 'PONTEIRO: '      WS-PONTEIRO
+      *     DISPLAY 'TOT CAMPOS: '    WS-TOT-CAMPOS
+      *
+      ******* COUNT IN
+      *
+      *     INITIALISE WS-NOME-COMPLETO WS-NOME WS-MOSTRA WS-COUNT
+      *
+      *     MOVE '*VANESSA;CRISTINA*DONADELLI;' TO WS-NOME-COMPLETO
+      *     MOVE 02                           TO WS-PONTEIRO
+      *
+      *     UNSTRING
+      *         WS-NOME-COMPLETO
+      *         DELIMITED BY '*' OR ';'
+      *         INTO WS-PRIM-NOME COUNT IN WS-TM-1
+      *              WS-MEIO-NOME COUNT IN WS-TM-2
+      *              WS-ULTI-NOME COUNT IN WS-TM-3
+      *         WITH POINTER WS-PONTEIRO
+      *         TALLYING IN WS-TOT-CAMPOS
+      *     END-UNSTRING
+      *
+      *     DISPLAY '==== FORMA COUNT IN ===='
+      *     DISPLAY 'PRIMEIRO NOME: ' WS-PRIM-NOME
+      *     DISPLAY 'MEIO NOME: '     WS-MEIO-NOME
+      *     DISPLAY 'ULTIMO NOME: '   WS-ULTI-NOME
+      *     DISPLAY 'PONTEIRO: '      WS-PONTEIRO
+      *     DISPLAY 'TOT CAMPOS: '    WS-TOT-CAMPOS
+      *     DISPLAY 'TAMANHO C1: '    WS-TM-1
+      *     DISPLAY 'TAMANHO C2: '    WS-TM-2
+      *     DISPLAY 'TAMANHO C3: '    WS-TM-3
+      ******************************************************************
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
