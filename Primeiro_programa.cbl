@@ -458,5 +458,37 @@
       *     DISPLAY 'TAMANHO C3: '    WS-TM-3
       ******************************************************************
 
+      ************************** ON SIZE ERROR *************************
+      *
+      *   77 WS-N1 PIC 9(02) VALUE ZEROS.
+      *   77 WS-N2 PIC 9(02) VALUE ZEROS.
+      *   77 WS-RES PIC 9(02) VALUE ZEROS.
+      *
+      * PROCEDURE DIVISION.
+      * P001-INICIO.
+      *
+      *     PERFORM P100-CALC.
+      *     PERFORM P999-FIM.
+      *
+      * P100-CALC.
+      *
+      *     DISPLAY "DIGITE O PRIMEIRO NUMERO: " ACCEPT WS-N1.
+      *     DISPLAY "DIGITE O SEGUNDO NUMERO: " ACCEPT WS-N2.
+      *
+      *     COMPUTE WS-RES = WS-N1 * WS-N2
+      *         ON SIZE ERROR PERFORM P800-ERRO
+      *     END-COMPUTE
+      *
+      *     DISPLAY "CALCULO OK! RESULTADO: " WS-RES
+      *     .
+      *
+      * P800-ERRO.
+      *         DISPLAY "ERRO NO CALCULO."
+      *         PERFORM P999-FIM
+      *         .
+      *
+      * P999-FIM.
+      ******************************************************************
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
