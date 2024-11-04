@@ -460,9 +460,9 @@
 
       ************************** ON SIZE ERROR *************************
       *
-      *   77 WS-N1 PIC 9(02) VALUE ZEROS.
-      *   77 WS-N2 PIC 9(02) VALUE ZEROS.
-      *   77 WS-RES PIC 9(02) VALUE ZEROS.
+      *   77 WS-N1             PIC 9(02) VALUE ZEROS.
+      *   77 WS-N2             PIC 9(02) VALUE ZEROS.
+      *   77 WS-RES            PIC 9(02) VALUE ZEROS.
       *
       * PROCEDURE DIVISION.
       * P001-INICIO.
@@ -489,6 +489,23 @@
       *
       * P999-FIM.
       ******************************************************************
+
+      *************************** LENGTH *******************************
+
+         77 WS-COMPRIMENTO         PIC 9(02) VALUE ZEROS.
+         01 WS-ENDERECO.
+           03 WS-RUA               PIC X(20).
+           03 WS-BAIRRO            PIC X(20).
+           03 WS-CIDADE            PIC X(40).
+
+       PROCEDURE DIVISION.
+
+           DISPLAY 'O COMPRIMETO DO GRUPO EH: ' LENGTH OF WS-ENDERECO
+
+           COMPUTE WS-COMPRIMENTO = FUNCTION LENGTH (WS-ENDERECO)
+
+           DISPLAY 'OUTRA FORMA FUNCAO: ' WS-COMPRIMENTO
+           .
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
