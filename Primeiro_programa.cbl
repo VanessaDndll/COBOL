@@ -491,21 +491,46 @@
       ******************************************************************
 
       *************************** LENGTH *******************************
+      *
+      *   77 WS-COMPRIMENTO         PIC 9(02) VALUE ZEROS.
+      *   01 WS-ENDERECO.
+      *     03 WS-RUA               PIC X(20).
+      *     03 WS-BAIRRO            PIC X(20).
+      *     03 WS-CIDADE            PIC X(40).
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     DISPLAY 'O COMPRIMETO DO GRUPO EH: ' LENGTH OF WS-ENDERECO
+      *
+      *     COMPUTE WS-COMPRIMENTO = FUNCTION LENGTH (WS-ENDERECO)
+      *
+      *     DISPLAY 'OUTRA FORMA FUNCAO: ' WS-COMPRIMENTO
+      *     .
+      ******************************************************************
 
-         77 WS-COMPRIMENTO         PIC 9(02) VALUE ZEROS.
-         01 WS-ENDERECO.
-           03 WS-RUA               PIC X(20).
-           03 WS-BAIRRO            PIC X(20).
-           03 WS-CIDADE            PIC X(40).
+      **************************** CORR ********************************
+      *
+         01 WS-FUNCIONARIO.
+           03 WS-NOME              PIC X(30).
+           03 WS-IDADE             PIC 9(02).
+           03 WS-CARGO             PIC X(20).
+
+         01 WS-FUNCIONARIO-BACKUP.
+           03 WS-NOME              PIC X(30).
+           03 WS-IDADE             PIC 9(02).
+           03 WS-ENDERECO          PIC X(30).
 
        PROCEDURE DIVISION.
 
-           DISPLAY 'O COMPRIMETO DO GRUPO EH: ' LENGTH OF WS-ENDERECO
+           MOVE 'VANESSA DNDLL'    TO WS-NOME OF WS-FUNCIONARIO
+           MOVE 19                 TO WS-IDADE OF WS-FUNCIONARIO
+           MOVE 'ANALISTA'         TO WS-CARGO OF WS-FUNCIONARIO
 
-           COMPUTE WS-COMPRIMENTO = FUNCTION LENGTH (WS-ENDERECO)
+      *     MOVE WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
+           MOVE CORR WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
 
-           DISPLAY 'OUTRA FORMA FUNCAO: ' WS-COMPRIMENTO
-           .
+           DISPLAY 'WS-FUNCIONARIO:        ' WS-FUNCIONARIO
+           DISPLAY 'WS-FUNCIONARIO-BACKUP: ' WS-FUNCIONARIO-BACKUP
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
