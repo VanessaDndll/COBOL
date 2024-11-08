@@ -569,6 +569,17 @@
            END-ADD
 
            DISPLAY 'VALOR DE N2 APOS O ADD: ' WS-N2
+
+      ******* SUBTRACT
+
+           DISPLAY 'FUNCAO SUBTRACT: '
+           SUBTRACT WS-N1       FROM       WS-N2
+                           ON SIZE ERROR PERFORM P300-ERRO
+           END-SUBTRACT
+
+           DISPLAY 'VALOR DE N2 APOS O SUBTRACT: ' WS-N2
+
+
            .
 
 
