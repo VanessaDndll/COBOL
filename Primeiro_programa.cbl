@@ -574,7 +574,7 @@
 
            DISPLAY 'FUNCAO SUBTRACT: '
            SUBTRACT 2       FROM       WS-N2
-                           ON SIZE ERROR PERFORM P300-ERRO
+                            ON SIZE ERROR PERFORM P300-ERRO
            END-SUBTRACT
 
            DISPLAY 'VALOR DE N2 APOS O SUBTRACT: ' WS-N2
@@ -583,13 +583,19 @@
 
            DISPLAY 'FUNCAO MULTIPLY: '
            MULTIPLY 2       BY       WS-N2
-                           ON SIZE ERROR PERFORM P300-ERRO
+                            ON SIZE ERROR PERFORM P300-ERRO
            END-MULTIPLY
 
            DISPLAY 'VALOR DE N2 APOS O MULTIPLY: ' WS-N2
 
+      ******* DIVIDE
 
+           DISPLAY 'FUNCAO DIVIDE: '
+           DIVIDE WS-N2       BY       WS-N1   GIVING WS-N2
+                              ON SIZE ERROR PERFORM P300-ERRO
+           END-DIVIDE
 
+           DISPLAY 'VALOR DE N2 APOS O DIVIDE: ' WS-N2
            .
 
 
