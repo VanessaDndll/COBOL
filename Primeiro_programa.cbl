@@ -510,27 +510,69 @@
 
       **************************** CORR ********************************
       *
-         01 WS-FUNCIONARIO.
-           03 WS-NOME              PIC X(30).
-           03 WS-IDADE             PIC 9(02).
-           03 WS-CARGO             PIC X(20).
+      *   01 WS-FUNCIONARIO.
+      *     03 WS-NOME              PIC X(30).
+      *     03 WS-IDADE             PIC 9(02).
+      *     03 WS-CARGO             PIC X(20).
+      *
+      *   01 WS-FUNCIONARIO-BACKUP.
+      *     03 WS-NOME              PIC X(30).
+      *     03 WS-IDADE             PIC 9(02).
+      *     03 WS-ENDERECO          PIC X(30).
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     MOVE 'VANESSA DNDLL'    TO WS-NOME OF WS-FUNCIONARIO
+      *     MOVE 19                 TO WS-IDADE OF WS-FUNCIONARIO
+      *     MOVE 'ANALISTA'         TO WS-CARGO OF WS-FUNCIONARIO
+      *
+      *     MOVE WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
+      *     MOVE CORR WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
+      *
+      *     DISPLAY 'WS-FUNCIONARIO:        ' WS-FUNCIONARIO
+      *     DISPLAY 'WS-FUNCIONARIO-BACKUP: ' WS-FUNCIONARIO-BACKUP
+      ******************************************************************
 
-         01 WS-FUNCIONARIO-BACKUP.
-           03 WS-NOME              PIC X(30).
-           03 WS-IDADE             PIC 9(02).
-           03 WS-ENDERECO          PIC X(30).
+      ********************** MATEMATICA ALTERNATIVA ********************
+      *
+         77 WS-N1              PIC 99 VALUE 0.
+         77 WS-N2              PIC 99 VALUE 0.
 
        PROCEDURE DIVISION.
 
-           MOVE 'VANESSA DNDLL'    TO WS-NOME OF WS-FUNCIONARIO
-           MOVE 19                 TO WS-IDADE OF WS-FUNCIONARIO
-           MOVE 'ANALISTA'         TO WS-CARGO OF WS-FUNCIONARIO
+           PERFORM P001-INICIO
+           PERFORM P500-CALC
+           PERFORM P999-FIM
+           .
 
-      *     MOVE WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
-           MOVE CORR WS-FUNCIONARIO TO WS-FUNCIONARIO-BACKUP
+       P001-INICIO.
+           INITIALISE WS-N1 WS-N2
 
-           DISPLAY 'WS-FUNCIONARIO:        ' WS-FUNCIONARIO
-           DISPLAY 'WS-FUNCIONARIO-BACKUP: ' WS-FUNCIONARIO-BACKUP
+           DISPLAY 'DIGITE O PRIMEIRO NUMERO: '
+           ACCEPT WS-N1
+           DISPLAY 'DIGITE O SEGUNDO NUMERO: '
+           ACCEPT WS-N2
+           .
+
+       P300-ERRO.
+           DISPLAY 'ERRO DE PROCESSAMENTO.'
+           PERFORM P999-FIM
+           .
+
+       P500-CALC.
+
+      ******* ADD
+
+           DISPLAY 'FUNCAO ADD: '
+           ADD WS-N1       TO       WS-N2
+                           ON SIZE ERROR PERFORM P300-ERRO
+           END-ADD
+
+           DISPLAY 'VALOR DE N2 APOS O ADD: ' WS-N2
+           .
+
+
+       P999-FIM.
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
