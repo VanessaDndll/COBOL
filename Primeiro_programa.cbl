@@ -609,6 +609,10 @@
            03 WS-N2                    PIC S9(04)V99.
            03 WS-TEXTO                 PIC X(20).
            03 WS-STATUS                PIC 9.
+           03 WS-LINHA                 PIC 99.
+           03 WS-CODIGO                PIC 9.
+           03 WS-CAMPO                 PIC 99.
+           03 WS-DADO                  PIC 99.
 
        PROCEDURE DIVISION.
 
@@ -652,6 +656,35 @@
                DISPLAY 'OUTRO'.
            IF WS-STATUS GREATER 3 THEN
                PERFORM P000-ERRO.
+
+      ******* CONDIÇÃO DE RELAÇÃO
+           DISPLAY 'DIGITE O NUMERO DA LINHA: '
+           ACCEPT WS-LINHA
+
+           DISPLAY 'DIGITE O NUMERO DO CODIGO: '
+           ACCEPT WS-CODIGO
+
+           DISPLAY 'DIGITE O NUMERO DO CAMPO: '
+           ACCEPT WS-CAMPO
+
+           DISPLAY 'DIGITE O NUMERO DO DADO: '
+           ACCEPT WS-DADO
+
+           IF WS-LINHA GREATER 30
+               DISPLAY 'LINHA MAIOR QUE 30'
+           ELSE
+               PERFORM P000-ERRO.
+
+           IF WS-CODIGO = 2
+               DISPLAY 'CODIGO ESTA OK'
+           ELSE
+               PERFORM P000-ERRO.
+
+           IF WS-CAMPO NOT LESS WS-DADO
+               DISPLAY 'CAMPO ESTA OK'
+           ELSE
+               PERFORM P000-ERRO.
+           .
 
        P999-FIM.
             STOP RUN.
