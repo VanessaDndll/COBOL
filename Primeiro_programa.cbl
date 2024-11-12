@@ -608,6 +608,7 @@
            03 WS-N1                    PIC S9(04)V99.
            03 WS-N2                    PIC S9(04)V99.
            03 WS-TEXTO                 PIC X(20).
+           03 WS-STATUS                PIC 9.
 
        PROCEDURE DIVISION.
 
@@ -638,7 +639,19 @@
                DISPLAY 'NAO EH NUMERICO!'
                PERFORM P000-ERRO
            END-IF
-           .
+
+      ******* NOME DE CONDIÇÃO
+           DISPLAY 'DIGITE O STATUS: '
+           ACCEPT WS-STATUS
+
+           IF WS-STATUS = 1 THEN
+               DISPLAY 'MULHER'.
+           IF WS-STATUS = 2 THEN
+               DISPLAY 'HOMEM'.
+           IF WS-STATUS = 3 THEN
+               DISPLAY 'OUTRO'.
+           IF WS-STATUS GREATER 3 THEN
+               PERFORM P000-ERRO.
 
        P999-FIM.
             STOP RUN.
