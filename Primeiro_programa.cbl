@@ -629,7 +629,9 @@
            INITIALISE WS-VARIAVEIS.
 
        P500-CALC.
+
       ******* CONDI플O DE CLASSE
+
            SET WS-N2                   TO 5.
            COMPUTE WS-N1 = WS-N1 + (WS-N2 * 3)
                            ON SIZE ERROR PERFORM P000-ERRO
@@ -645,6 +647,7 @@
            END-IF
 
       ******* NOME DE CONDI플O
+
            DISPLAY 'DIGITE O STATUS: '
            ACCEPT WS-STATUS
 
@@ -658,6 +661,7 @@
                PERFORM P000-ERRO.
 
       ******* CONDI플O DE RELA플O
+
            DISPLAY 'DIGITE O NUMERO DA LINHA: '
            ACCEPT WS-LINHA
 
@@ -672,20 +676,37 @@
 
            IF WS-LINHA GREATER 30
                DISPLAY 'LINHA MAIOR QUE 30'
-           ELSE
-               PERFORM P000-ERRO.
+      *     ELSE
+      *         PERFORM P000-ERRO.
 
            IF WS-CODIGO = 2
                DISPLAY 'CODIGO ESTA OK'
-           ELSE
-               PERFORM P000-ERRO.
+      *     ELSE
+      *         PERFORM P000-ERRO.
 
            IF WS-CAMPO NOT LESS WS-DADO
                DISPLAY 'CAMPO ESTA OK'
+      *     ELSE
+      *         PERFORM P000-ERRO.
+
+      ******* CONDI플O DE SINAL
+
+           COMPUTE WS-N1 = WS-N2 * 1
+
+           IF WS-N1 IS POSITIVE THEN
+               DISPLAY 'OK, EH POSITIVO'
            ELSE
-               PERFORM P000-ERRO.
+               DISPLAY 'NAO EH POSITIVO'
+           END-IF
+
+           IF WS-N2 IS GREATER THAN (WS-N1 ** 2 - 4 * WS-N2)
+               DISPLAY 'OK, CALCULO CERTO: ' WS-N2
+           ELSE
+               DISPLAY 'NAO OK: ' WS-N2
+           END-IF
            .
 
        P999-FIM.
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
