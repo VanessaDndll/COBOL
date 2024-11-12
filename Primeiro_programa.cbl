@@ -535,71 +535,111 @@
 
       ********************** MATEMATICA ALTERNATIVA ********************
       *
-         77 WS-N1              PIC 99 VALUE 0.
-         77 WS-N2              PIC 99 VALUE 0.
+      *   77 WS-N1              PIC 99 VALUE 0.
+      *   77 WS-N2              PIC 99 VALUE 0.
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     PERFORM P001-INICIO
+      *     PERFORM P500-CALC
+      *     PERFORM P999-FIM
+      *     .
+      *
+      * P001-INICIO.
+      *     INITIALISE WS-N1 WS-N2
+      *
+      *     DISPLAY 'DIGITE O PRIMEIRO NUMERO: '
+      *     ACCEPT WS-N1
+      *     DISPLAY 'DIGITE O SEGUNDO NUMERO: '
+      *     ACCEPT WS-N2
+      *     .
+      *
+      * P300-ERRO.
+      *     DISPLAY 'ERRO DE PROCESSAMENTO.'
+      *     PERFORM P999-FIM
+      *     .
+      *
+      * P500-CALC.
+      *
+      ******* ADD
+      *
+      *     DISPLAY 'FUNCAO ADD: '
+      *     ADD WS-N1       TO       WS-N2
+      *                     ON SIZE ERROR PERFORM P300-ERRO
+      *     END-ADD
+      *
+      *     DISPLAY 'VALOR DE N2 APOS O ADD: ' WS-N2
+      *
+      ******* SUBTRACT
+      *
+      *     DISPLAY 'FUNCAO SUBTRACT: '
+      *     SUBTRACT 2       FROM       WS-N2
+      *                      ON SIZE ERROR PERFORM P300-ERRO
+      *     END-SUBTRACT
+      *
+      *     DISPLAY 'VALOR DE N2 APOS O SUBTRACT: ' WS-N2
+      *
+      ******* MULTIPLY
+      *
+      *     DISPLAY 'FUNCAO MULTIPLY: '
+      *     MULTIPLY 2       BY       WS-N2
+      *                      ON SIZE ERROR PERFORM P300-ERRO
+      *     END-MULTIPLY
+      *
+      *     DISPLAY 'VALOR DE N2 APOS O MULTIPLY: ' WS-N2
+      *
+      ******* DIVIDE
+      *
+      *     DISPLAY 'FUNCAO DIVIDE: '
+      *     DIVIDE WS-N2       BY       WS-N1   GIVING WS-N2
+      *                        ON SIZE ERROR PERFORM P300-ERRO
+      *     END-DIVIDE
+      *
+      *     DISPLAY 'VALOR DE N2 APOS O DIVIDE: ' WS-N2
+      *     .
+      *
+      * P999-FIM.
+      *
+      ******************************************************************
+
+      **************************** IF **********************************
+      *
+         01 WS-VARIAVEIS.
+           03 WS-N1                    PIC S9(04)V99.
+           03 WS-N2                    PIC S9(04)V99.
+           03 WS-TEXTO                 PIC X(20).
 
        PROCEDURE DIVISION.
 
-           PERFORM P001-INICIO
+           PERFORM P100-INICIALIZA
            PERFORM P500-CALC
            PERFORM P999-FIM
            .
 
-       P001-INICIO.
-           INITIALISE WS-N1 WS-N2
+       P000-ERRO.
+           DISPLAY 'ERRO DE PROCESSAMENTO'
+           PERFORM P999-FIM.
 
-           DISPLAY 'DIGITE O PRIMEIRO NUMERO: '
-           ACCEPT WS-N1
-           DISPLAY 'DIGITE O SEGUNDO NUMERO: '
-           ACCEPT WS-N2
-           .
-
-       P300-ERRO.
-           DISPLAY 'ERRO DE PROCESSAMENTO.'
-           PERFORM P999-FIM
-           .
+       P100-INICIALIZA.
+           INITIALISE WS-VARIAVEIS.
 
        P500-CALC.
+      ******* CONDIÇÃO DE CLASSE
+           SET WS-N2                   TO 5.
+           COMPUTE WS-N1 = WS-N1 + (WS-N2 * 3)
+                           ON SIZE ERROR PERFORM P000-ERRO
+           END-COMPUTE
 
-      ******* ADD
+           MOVE 'TEXTO'                TO WS-TEXTO
 
-           DISPLAY 'FUNCAO ADD: '
-           ADD WS-N1       TO       WS-N2
-                           ON SIZE ERROR PERFORM P300-ERRO
-           END-ADD
-
-           DISPLAY 'VALOR DE N2 APOS O ADD: ' WS-N2
-
-      ******* SUBTRACT
-
-           DISPLAY 'FUNCAO SUBTRACT: '
-           SUBTRACT 2       FROM       WS-N2
-                            ON SIZE ERROR PERFORM P300-ERRO
-           END-SUBTRACT
-
-           DISPLAY 'VALOR DE N2 APOS O SUBTRACT: ' WS-N2
-
-      ******* MULTIPLY
-
-           DISPLAY 'FUNCAO MULTIPLY: '
-           MULTIPLY 2       BY       WS-N2
-                            ON SIZE ERROR PERFORM P300-ERRO
-           END-MULTIPLY
-
-           DISPLAY 'VALOR DE N2 APOS O MULTIPLY: ' WS-N2
-
-      ******* DIVIDE
-
-           DISPLAY 'FUNCAO DIVIDE: '
-           DIVIDE WS-N2       BY       WS-N1   GIVING WS-N2
-                              ON SIZE ERROR PERFORM P300-ERRO
-           END-DIVIDE
-
-           DISPLAY 'VALOR DE N2 APOS O DIVIDE: ' WS-N2
+           IF WS-N2 IS NUMERIC THEN
+               DISPLAY 'EH NUMERICO!'
+           ELSE
+               DISPLAY 'NAO EH NUMERICO!'
+               PERFORM P000-ERRO
+           END-IF
            .
 
-
        P999-FIM.
-
             STOP RUN.
        END PROGRAM Primeiro_programa.
