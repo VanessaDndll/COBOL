@@ -604,109 +604,146 @@
 
       **************************** IF **********************************
       *
+      *   01 WS-VARIAVEIS.
+      *     03 WS-N1                    PIC S9(04)V99.
+      *     03 WS-N2                    PIC S9(04)V99.
+      *     03 WS-TEXTO                 PIC X(20).
+      *     03 WS-STATUS                PIC 9.
+      *     03 WS-LINHA                 PIC 99.
+      *     03 WS-CODIGO                PIC 9.
+      *     03 WS-CAMPO                 PIC 99.
+      *     03 WS-DADO                  PIC 99.
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     PERFORM P100-INICIALIZA
+      *     PERFORM P500-CALC
+      *     PERFORM P999-FIM
+      *     .
+      *
+      * P000-ERRO.
+      *     DISPLAY 'ERRO DE PROCESSAMENTO'
+      *     PERFORM P999-FIM.
+      *
+      * P100-INICIALIZA.
+      *     INITIALISE WS-VARIAVEIS.
+      *
+      * P500-CALC.
+      *
+      ******* CONDI플O DE CLASSE
+      *
+      *     SET WS-N2                   TO 5.
+      *     COMPUTE WS-N1 = WS-N1 + (WS-N2 * 3)
+      *                     ON SIZE ERROR PERFORM P000-ERRO
+      *     END-COMPUTE
+      *
+      *     MOVE 'TEXTO'                TO WS-TEXTO
+      *
+      *     IF WS-N2 IS NUMERIC THEN
+      *         DISPLAY 'EH NUMERICO!'
+      *     ELSE
+      *         DISPLAY 'NAO EH NUMERICO!'
+      *         PERFORM P000-ERRO
+      *     END-IF
+      *
+      ******* NOME DE CONDI플O
+      *
+      *     DISPLAY 'DIGITE O STATUS: '
+      *     ACCEPT WS-STATUS
+      *
+      *     IF WS-STATUS = 1 THEN
+      *         DISPLAY 'MULHER'.
+      *     IF WS-STATUS = 2 THEN
+      *         DISPLAY 'HOMEM'.
+      *     IF WS-STATUS = 3 THEN
+      *         DISPLAY 'OUTRO'.
+      *     IF WS-STATUS GREATER 3 THEN
+      *         PERFORM P000-ERRO.
+      *
+      ******* CONDI플O DE RELA플O
+      *
+      *     DISPLAY 'DIGITE O NUMERO DA LINHA: '
+      *     ACCEPT WS-LINHA
+      *
+      *     DISPLAY 'DIGITE O NUMERO DO CODIGO: '
+      *     ACCEPT WS-CODIGO
+      *
+      *     DISPLAY 'DIGITE O NUMERO DO CAMPO: '
+      *     ACCEPT WS-CAMPO
+      *
+      *     DISPLAY 'DIGITE O NUMERO DO DADO: '
+      *     ACCEPT WS-DADO
+      *
+      *     IF WS-LINHA GREATER 30
+      *         DISPLAY 'LINHA MAIOR QUE 30'
+      *     ELSE
+      *         PERFORM P000-ERRO.
+      *
+      *     IF WS-CODIGO = 2
+      *         DISPLAY 'CODIGO ESTA OK'
+      *     ELSE
+      *         PERFORM P000-ERRO.
+      *
+      *     IF WS-CAMPO NOT LESS WS-DADO
+      *         DISPLAY 'CAMPO ESTA OK'
+      *     ELSE
+      *         PERFORM P000-ERRO.
+      *
+      ******* CONDI플O DE SINAL
+      *
+      *     COMPUTE WS-N1 = WS-N2 * 1
+      *
+      *     IF WS-N1 IS POSITIVE THEN
+      *         DISPLAY 'OK, EH POSITIVO'
+      *     ELSE
+      *         DISPLAY 'NAO EH POSITIVO'
+      *     END-IF
+      *
+      *     IF WS-N2 IS GREATER THAN (WS-N1 ** 2 - 4 * WS-N2)
+      *         DISPLAY 'OK, CALCULO CERTO: ' WS-N2
+      *     ELSE
+      *         DISPLAY 'NAO OK: ' WS-N2
+      *     END-IF
+      *     .
+      *
+      * P999-FIM.
+      ******************************************************************
+
+      **************************** EVALUATE ****************************
+      *
          01 WS-VARIAVEIS.
-           03 WS-N1                    PIC S9(04)V99.
-           03 WS-N2                    PIC S9(04)V99.
-           03 WS-TEXTO                 PIC X(20).
-           03 WS-STATUS                PIC 9.
-           03 WS-LINHA                 PIC 99.
-           03 WS-CODIGO                PIC 9.
-           03 WS-CAMPO                 PIC 99.
-           03 WS-DADO                  PIC 99.
+           03 WS-MES               PIC 99.
+           03 WS-STATUS            PIC 99.
 
        PROCEDURE DIVISION.
 
-           PERFORM P100-INICIALIZA
-           PERFORM P500-CALC
-           PERFORM P999-FIM
-           .
+           DISPLAY 'DIGITE UM NUMERO DE UM MES: '
+           ACCEPT WS-MES
 
-       P000-ERRO.
-           DISPLAY 'ERRO DE PROCESSAMENTO'
-           PERFORM P999-FIM.
-
-       P100-INICIALIZA.
-           INITIALISE WS-VARIAVEIS.
-
-       P500-CALC.
-
-      ******* CONDI플O DE CLASSE
-
-           SET WS-N2                   TO 5.
-           COMPUTE WS-N1 = WS-N1 + (WS-N2 * 3)
-                           ON SIZE ERROR PERFORM P000-ERRO
-           END-COMPUTE
-
-           MOVE 'TEXTO'                TO WS-TEXTO
-
-           IF WS-N2 IS NUMERIC THEN
-               DISPLAY 'EH NUMERICO!'
-           ELSE
-               DISPLAY 'NAO EH NUMERICO!'
-               PERFORM P000-ERRO
-           END-IF
-
-      ******* NOME DE CONDI플O
-
-           DISPLAY 'DIGITE O STATUS: '
+           DISPLAY 'DIGITE UM NUMERO DE STATUS: '
            ACCEPT WS-STATUS
 
-           IF WS-STATUS = 1 THEN
-               DISPLAY 'MULHER'.
-           IF WS-STATUS = 2 THEN
-               DISPLAY 'HOMEM'.
-           IF WS-STATUS = 3 THEN
-               DISPLAY 'OUTRO'.
-           IF WS-STATUS GREATER 3 THEN
-               PERFORM P000-ERRO.
+           EVALUATE WS-MES
+               WHEN 01
+                   DISPLAY 'JANEIRO'
+               WHEN 02
+                   DISPLAY 'FEVEREIRO'
+               WHEN 03
+                   DISPLAY 'MARCO'
+               WHEN OTHER
+                   DISPLAY 'MES INDISPONIVEL!'
+           END-EVALUATE
 
-      ******* CONDI플O DE RELA플O
-
-           DISPLAY 'DIGITE O NUMERO DA LINHA: '
-           ACCEPT WS-LINHA
-
-           DISPLAY 'DIGITE O NUMERO DO CODIGO: '
-           ACCEPT WS-CODIGO
-
-           DISPLAY 'DIGITE O NUMERO DO CAMPO: '
-           ACCEPT WS-CAMPO
-
-           DISPLAY 'DIGITE O NUMERO DO DADO: '
-           ACCEPT WS-DADO
-
-           IF WS-LINHA GREATER 30
-               DISPLAY 'LINHA MAIOR QUE 30'
-      *     ELSE
-      *         PERFORM P000-ERRO.
-
-           IF WS-CODIGO = 2
-               DISPLAY 'CODIGO ESTA OK'
-      *     ELSE
-      *         PERFORM P000-ERRO.
-
-           IF WS-CAMPO NOT LESS WS-DADO
-               DISPLAY 'CAMPO ESTA OK'
-      *     ELSE
-      *         PERFORM P000-ERRO.
-
-      ******* CONDI플O DE SINAL
-
-           COMPUTE WS-N1 = WS-N2 * 1
-
-           IF WS-N1 IS POSITIVE THEN
-               DISPLAY 'OK, EH POSITIVO'
-           ELSE
-               DISPLAY 'NAO EH POSITIVO'
-           END-IF
-
-           IF WS-N2 IS GREATER THAN (WS-N1 ** 2 - 4 * WS-N2)
-               DISPLAY 'OK, CALCULO CERTO: ' WS-N2
-           ELSE
-               DISPLAY 'NAO OK: ' WS-N2
-           END-IF
-           .
-
-       P999-FIM.
+           EVALUATE WS-STATUS
+               WHEN 01
+                   DISPLAY 'MULHER'
+               WHEN 02
+                   DISPLAY 'HOMEM'
+               WHEN 03
+                   DISPLAY 'OUTROS'
+               WHEN OTHER
+                   DISPLAY 'STATUS INDISPONIVEL!'
+           END-EVALUATE
 
             STOP RUN.
        END PROGRAM Primeiro_programa.
