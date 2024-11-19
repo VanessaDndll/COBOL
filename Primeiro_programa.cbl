@@ -711,39 +711,74 @@
 
       **************************** EVALUATE ****************************
       *
+      *   01 WS-VARIAVEIS.
+      *     03 WS-MES               PIC 99.
+      *     03 WS-STATUS            PIC 99.
+      *
+      * PROCEDURE DIVISION.
+      *
+      *     DISPLAY 'DIGITE UM NUMERO DE UM MES: '
+      *     ACCEPT WS-MES
+      *
+      *     DISPLAY 'DIGITE UM NUMERO DE STATUS: '
+      *     ACCEPT WS-STATUS
+      *
+      *     EVALUATE WS-MES
+      *         WHEN 01
+      *             DISPLAY 'JANEIRO'
+      *         WHEN 02
+      *             DISPLAY 'FEVEREIRO'
+      *         WHEN 03
+      *             DISPLAY 'MARCO'
+      *         WHEN OTHER
+      *             DISPLAY 'MES INDISPONIVEL!'
+      *     END-EVALUATE
+      *
+      *     EVALUATE WS-STATUS
+      *         WHEN 01
+      *             DISPLAY 'MULHER'
+      *         WHEN 02
+      *             DISPLAY 'HOMEM'
+      *         WHEN 03
+      *             DISPLAY 'OUTROS'
+      *         WHEN OTHER
+      *             DISPLAY 'STATUS INDISPONIVEL!'
+      *     END-EVALUATE
+      ******************************************************************
+
+      *************************** REPETIÇÃO ****************************
+      *
          01 WS-VARIAVEIS.
-           03 WS-MES               PIC 99.
-           03 WS-STATUS            PIC 99.
+           03 WS-COUNT                 PIC 99.
+           03 WS-TOT                   PIC 99.
+           03 WS-IND                   PIC 99.
 
        PROCEDURE DIVISION.
 
-           DISPLAY 'DIGITE UM NUMERO DE UM MES: '
-           ACCEPT WS-MES
+       P100-INICIO.
+           INITIALISE WS-VARIAVEIS.
+           PERFORM P300-PROCESSA-1     THRU P300-FIM 3 TIMES
+           PERFORM P500-PROCESSA-2     THRU P500-FIM
+           PERFORM P900-FINALIZA
+           .
 
-           DISPLAY 'DIGITE UM NUMERO DE STATUS: '
-           ACCEPT WS-STATUS
+      ******* TIMES
+       P300-PROCESSA-1.
+           ADD 1                       TO WS-COUNT
+           DISPLAY "CONTADOR: " WS-COUNT
 
-           EVALUATE WS-MES
-               WHEN 01
-                   DISPLAY 'JANEIRO'
-               WHEN 02
-                   DISPLAY 'FEVEREIRO'
-               WHEN 03
-                   DISPLAY 'MARCO'
-               WHEN OTHER
-                   DISPLAY 'MES INDISPONIVEL!'
-           END-EVALUATE
+      *>      MOVE ZEROS                  TO WS-TOT
+           PERFORM 3 TIMES
+           ADD 1                       TO WS-TOT
+           DISPLAY 'WS-TOT: ' WS-TOT
+           END-PERFORM
+           .
+       P300-FIM.
 
-           EVALUATE WS-STATUS
-               WHEN 01
-                   DISPLAY 'MULHER'
-               WHEN 02
-                   DISPLAY 'HOMEM'
-               WHEN 03
-                   DISPLAY 'OUTROS'
-               WHEN OTHER
-                   DISPLAY 'STATUS INDISPONIVEL!'
-           END-EVALUATE
+       P500-PROCESSA-2.
 
+       P500-FIM.
+
+       P900-FINALIZA.
             STOP RUN.
        END PROGRAM Primeiro_programa.
