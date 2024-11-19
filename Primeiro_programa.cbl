@@ -757,27 +757,42 @@
 
        P100-INICIO.
            INITIALISE WS-VARIAVEIS.
-           PERFORM P300-PROCESSA-1     THRU P300-FIM 3 TIMES
-           PERFORM P500-PROCESSA-2     THRU P500-FIM
+      *     PERFORM P300-PROCESSA-1     THRU P300-FIM 3 TIMES
+           PERFORM P500-PROCESSA-2     THRU P500-FIM WITH TEST
+                                       BEFORE UNTIL WS-COUNT = 5
+           PERFORM P700-PROCESSA-3     THRU P700-FIM
            PERFORM P900-FINALIZA
            .
 
       ******* TIMES
-       P300-PROCESSA-1.
+      * P300-PROCESSA-1.
+      *     ADD 1                       TO WS-COUNT
+      *     DISPLAY "CONTADOR: " WS-COUNT
+      *
+      *     MOVE ZEROS                  TO WS-TOT
+      *     PERFORM 3 TIMES
+      *     ADD 1                       TO WS-TOT
+      *     DISPLAY 'WS-TOT: ' WS-TOT
+      *     END-PERFORM
+      *     .
+      * P300-FIM.
+      *
+      ******* UNTIL
+       P500-PROCESSA-2.
            ADD 1                       TO WS-COUNT
            DISPLAY "CONTADOR: " WS-COUNT
 
-      *>      MOVE ZEROS                  TO WS-TOT
-           PERFORM 3 TIMES
+      *     MOVE ZEROS                  TO WS-TOT
+           PERFORM WITH TEST BEFORE UNTIL WS-TOT = 3
            ADD 1                       TO WS-TOT
            DISPLAY 'WS-TOT: ' WS-TOT
            END-PERFORM
            .
-       P300-FIM.
-
-       P500-PROCESSA-2.
-
        P500-FIM.
+
+       P700-PROCESSA-3.
+
+       P700-FIM.
 
        P900-FINALIZA.
             STOP RUN.
