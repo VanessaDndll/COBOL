@@ -748,22 +748,22 @@
 
       *************************** REPETIÇÃO ****************************
       *
-         01 WS-VARIAVEIS.
-           03 WS-COUNT                 PIC 99.
-           03 WS-TOT                   PIC 99.
-           03 WS-IND                   PIC 99.
-
-       PROCEDURE DIVISION.
-
-       P100-INICIO.
-           INITIALISE WS-VARIAVEIS.
+      *   01 WS-VARIAVEIS.
+      *     03 WS-COUNT                 PIC 99.
+      *     03 WS-TOT                   PIC 99.
+      *     03 WS-IND                   PIC 99.
+      *
+      * PROCEDURE DIVISION.
+      *
+      * P100-INICIO.
+      *     INITIALISE WS-VARIAVEIS.
       *     PERFORM P300-PROCESSA-1     THRU P300-FIM 3 TIMES
       *     PERFORM P500-PROCESSA-2     THRU P500-FIM WITH TEST
       *                                 BEFORE UNTIL WS-COUNT = 5
-           PERFORM P700-PROCESSA-3     THRU P700-FIM
-           PERFORM P900-FINALIZA
-           .
-
+      *     PERFORM P700-PROCESSA-3     THRU P700-FIM
+      *     PERFORM P900-FINALIZA
+      *     .
+      *
       ******* TIMES
       * P300-PROCESSA-1.
       *     ADD 1                       TO WS-COUNT
@@ -791,13 +791,47 @@
       * P500-FIM.
       *
       ******* VARYING
-       P700-PROCESSA-3.
-           PERFORM VARYING WS-IND FROM 2 BY 2 UNTIL WS-IND GREATER 5
-           DISPLAY 'WS-IND: ' WS-IND
-           END-PERFORM
-           .
-       P700-FIM.
+      * P700-PROCESSA-3.
+      *     PERFORM VARYING WS-IND FROM 2 BY 2 UNTIL WS-IND GREATER 5
+      *     DISPLAY 'WS-IND: ' WS-IND
+      *     END-PERFORM
+      *     .
+      * P700-FIM.
+      *
+      * P900-FINALIZA.
+      ******************************************************************
 
-       P900-FINALIZA.
+      *************************** STRING II ****************************
+      *
+      ******* LAYOUT
+         77 WS-TM-1                    PIC 99.
+         77 WS-TM-2                    PIC 99.
+
+       COPY LAYOUT001.
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+           MOVE 'Vanessa'              TO WS-PRIMEIRO-NOME
+           MOVE 'Dndll'                TO WS-ULTIMO-NOME
+
+           MOVE '551123456789'        TO WS-TELEFONE
+
+           MOVE 'RUA NOVA, 997'        TO WS-RUA
+           MOVE 'JORDANA'              TO WS-BAIRRO
+           MOVE 'SAO PAULO'            TO WS-CIDADE
+           MOVE 'SP'                   TO WS-UF
+
+           MOVE '0845530'              TO WS-CEP
+
+           MOVE 'BRASILEIRA'           TO WS-NACINALIDADE
+
+           MOVE 'CONSULTORA'           TO WS-PROFISSAO
+
+           DISPLAY '1 - NOME COMPLETO: ' WS-PRIMEIRO-NOME
+                                         WS-ULTIMO-NOME
+           DISPLAY '2 - TELEFONE     : ' WS-TELEFONE
+           DISPLAY '3 - ENDERECO     : ' WS-ENDERECO
+           DISPLAY '4 - NACIONALIDADE: ' WS-NACINALIDADE
+           DISPLAY '5 - PROFISSAO    : ' WS-PROFISSAO
+
             STOP RUN.
        END PROGRAM Primeiro_programa.
