@@ -826,10 +826,34 @@
 
            MOVE 'CONSULTORA'           TO WS-PROFISSAO
 
+      ******* FORMATAÇÃO
+           MOVE ZEROS                  TO WS-TM-1
+           INSPECT FUNCTION REVERSE(WS-PRIMEIRO-NOME)
+                            TALLYING WS-TM-1 FOR LEADING ' '
+
            DISPLAY '1 - NOME COMPLETO: ' WS-PRIMEIRO-NOME
+                 (1:(FUNCTION LENGTH(WS-PRIMEIRO-NOME) - WS-TM-1))
+                                         ' '
                                          WS-ULTIMO-NOME
-           DISPLAY '2 - TELEFONE     : ' WS-TELEFONE
-           DISPLAY '3 - ENDERECO     : ' WS-ENDERECO
+
+           DISPLAY '2 - TELEFONE     : ' '+' WS-PAIS ' ' WS-DDD ' '
+                                         WS-PREFIXO '-' WS-SUFIXO
+
+           MOVE ZEROS                  TO WS-TM-1
+           INSPECT FUNCTION REVERSE(WS-RUA)
+                            TALLYING WS-TM-1 FOR LEADING ' '
+           MOVE ZEROS                  TO WS-TM-1
+           INSPECT FUNCTION REVERSE(WS-CIDADE)
+                            TALLYING WS-TM-2 FOR LEADING ' '
+           DISPLAY '3 - ENDERECO     : ' WS-RUA
+                 (1:(FUNCTION LENGTH(WS-RUA) - WS-TM-1))
+                                         WS-BAIRRO
+                                         WS-CIDADE
+                 (1:(FUNCTION LENGTH(WS-CIDADE) - WS-TM-2)) ' '
+                                         WS-UF
+
+                 FUNCTION CONCATENATE(' - CEP: ' WS-CEP-1 '-' WS-CEP-2)
+
            DISPLAY '4 - NACIONALIDADE: ' WS-NACINALIDADE
            DISPLAY '5 - PROFISSAO    : ' WS-PROFISSAO
 
